@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {auth} from './../../common/auth';
-import { Form, Icon, Button, Input, Divider } from 'antd';
+import { Form, Icon, Button, Input, Divider, message } from 'antd';
 import './css/AddForm.css';
 
 class AddForm extends Component {
@@ -19,10 +19,27 @@ class AddForm extends Component {
 
     }
     inputHandle = (evt) => {
-        this.state.jsonTemplateData = eval('(' + evt.target.value + ')');
+        if (evt.target.value) {
+            this.setState({
+                jsonTemplateData: eval('(' + evt.target.value + ')')
+            });
+        } else {
+            this.setState({
+                jsonTemplateData: []
+            });
+        }
+        
     }
     addHandle = () => {
         let formData = this.state.jsonTemplateData;
+        if (formData.length == 0) {
+            message.warn('模板内容不能为空 ！')
+            return;
+        }
+        if (!this.isJson(formData)) {
+            message.error('JSON字符串格式错误 ！');
+            return;
+        }
         let html = '';
         // console.log(formData);
         const formItems = Object.getOwnPropertyNames(formData).map((item, index) => {
@@ -44,8 +61,23 @@ class AddForm extends Component {
             confirmVisibility: 'visible'
         });
     }
-    confirmHandle = () => {
-
+    isJson = (formData) => {
+        if (typeof formData == 'object' && formData) {
+            return true;
+        }
+        try {
+            let obj = JSON.parse(formData);
+            if (typeof obj == 'object' && obj) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch(e) {
+            console.log(e);
+            return false;
+        }
+    }
+    confirmHandle = (formData) => {
     }
     render() {
         const formItemLayout = {
