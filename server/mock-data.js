@@ -4,6 +4,23 @@ const bodyParser = require('body-parser');
 
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
+// 查询表单
+router.get('/form/query', urlencodedParser, function(req, res, next) {
+    console.log("------------------------------");
+    res.json(
+        [
+            {
+                "weekBillNo":[
+                    "billOwnerCount",
+                    "billType",
+                    "billCount",
+                    "billSumQuantity"
+                ]
+            }
+        ]
+        
+    );
+});
 // 用户列表
 router.get('/v1/users/c', urlencodedParser, function(req, res, next) {
     console.log("------------------------------");
