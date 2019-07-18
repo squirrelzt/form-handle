@@ -18,27 +18,23 @@ class AddForm extends Component {
 
     }
     inputHandle = (evt) => {
-        // console.log('-------------------------');
-        // console.log(evt.target.value);
-        // let jsonObj = eval('(' + evt.target.value + ')');
         this.state.jsonTemplateData = eval('(' + evt.target.value + ')');
-
-        // console.log('**********************');
-        // console.log(this.state.jsonTemplateData);
     }
     addHandle = () => {
         let formData = this.state.jsonTemplateData;
         let html = '';
-        console.log(formData);
-        // console.log(Object.keys(this.state.jsonTemplateData));
-        const formItems = Object.keys(formData).map((item, index) => {
+        // console.log(formData);
+        const formItems = Object.getOwnPropertyNames(formData).map((item, index) => {
             // console.log('-------------------------');
             // console.log(item);
+            // console.log(formData[item]);
+            let type = formData[item].type;
+            let value = formData[item].value;
             return(
                 <Form.Item
                     label={item}
                     key={item + index}>
-                    <Input key={item + 'input'} value={item} ></Input>
+                    <Input key={item + 'input'} value={value} disabled></Input>
                 </Form.Item>
             );
         });
@@ -69,7 +65,7 @@ class AddForm extends Component {
                     </div>
                     
                 </div>
-                {/* <Divider type="vertical" className="add-form-divider"/> */}
+                <Divider className="add-form-divider"/>
                 <div className="display-form" >
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                     {this.state.formHtml}

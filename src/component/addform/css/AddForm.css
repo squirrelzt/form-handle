@@ -1,6 +1,4 @@
 .add-json {
-    float: left;
-    width: 50%;
 }
 .add-json .json-content {
     min-height: 300px;
@@ -10,12 +8,8 @@
     text-align: center;
 }
 #add-form-container .add-form-divider {
-    min-height: 500px;
 }
 .add-form-divider {
-    float: left;
 }
 .display-form {
-    width: 50%;
-    float: right;
 }
