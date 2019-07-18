@@ -47,6 +47,12 @@
     line-height: 30px;
     margin-top: 20px;
 }
+.form-name {
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    margin-top: 10px;
+}
 .confirm-section .ant-btn-primary {
     width: 150px;
     height: 60px;

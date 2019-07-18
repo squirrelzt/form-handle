@@ -46,12 +46,10 @@ class AddForm extends Component {
         }
         let html = '';
         // console.log(formData);
-        const formItems = Object.getOwnPropertyNames(formData).map((item, index) => {
-            // console.log('-------------------------');
-            // console.log(item);
-            // console.log(formData[item]);
-            // let type = formData[item].type;
-            // let value = formData[item].value;
+        let obj = Object.keys(formData);
+        // console.log('===============');
+        // console.log(obj);
+        const formItems = formData[obj[0]].map((item, index) => {
             return(
                 <Form.Item
                     label={item}
@@ -62,8 +60,14 @@ class AddForm extends Component {
                 </Form.Item>
             );
         });
+        const formContent = <div>
+                                <div className="form-name">
+                                    <span>{obj[0]}</span>
+                                </div>
+                                {formItems}
+                            </div>;
         this.setState({
-            formHtml: formItems,
+            formHtml: formContent,
             confirmVisibility: 'visible'
         });
     }
@@ -118,11 +122,6 @@ class AddForm extends Component {
                         <span>表单预览</span>
                     </div>
                     <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                        <Form.Item label="模板名">
-                            {getFieldDecorator('templateName')(
-                                <Input placeholder="请输入模板名" />,
-                            )}
-                        </Form.Item>
                         {this.state.formHtml}
                         <div className="confirm-section" >
                             <Button type="primary" className="confirm-btn" 
