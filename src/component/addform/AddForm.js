@@ -31,6 +31,10 @@ class AddForm extends Component {
         
     }
     addHandle = () => {
+        this.setState({
+            formHtml: '',
+            confirmVisibility: 'hidden'
+        });
         let formData = this.state.jsonTemplateData;
         if (formData.length == 0) {
             message.warn('模板内容不能为空 ！')
@@ -77,9 +81,15 @@ class AddForm extends Component {
             return false;
         }
     }
-    confirmHandle = (formData) => {
+    confirmHandle = (e) => {
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+              console.log('Received values of form: ', values);
+            }
+          });
     }
     render() {
+        const { getFieldDecorator, getFieldError, isFieldValidating, isFieldTouched, getFieldValue } = this.props.form;
         const formItemLayout = {
             labelCol: {
                 xs: { span: 10 },
@@ -93,24 +103,28 @@ class AddForm extends Component {
         return (
             <div id="add-form-container">
                 <div className="add-json">
-                    <span>请输入JSON模板</span>
-                    <Input.TextArea className="json-content" onChange={this.inputHandle}>
-                    
-                    </Input.TextArea>
-                    <div className="add-form-btn">
-                        <Button type="primary" onClick={this.addHandle}>生成</Button>
+                    <div className="add-json-title">
+                        <span>JSON模板</span>
                     </div>
-                    
+                    <Input.TextArea className="json-content" placeholder="请输入JSON模板" onChange={this.inputHandle} />
+                    <div className="add-form-btn">
+                        <Button type="primary" onClick={this.addHandle}>生成预览</Button>
+                    </div>
                 </div>
-                <Divider className="add-form-divider"/>
                 <div className="display-form" style={{visibility:this.state.confirmVisibility}}>
+                    <div className="display-form-title">
+                        <span>表单预览</span>
+                    </div>
                     <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                        <Form.Item label="模板名">
+                            {getFieldDecorator('templateName')(
+                                <Input placeholder="请输入模板名" />,
+                            )}
+                        </Form.Item>
                         {this.state.formHtml}
                         <div className="confirm-section" >
-                            <Form.Item>
-                                <Button type="primary" className="confirm-btn" 
-                                onClick={this.confirmHandle}>确认</Button>
-                            </Form.Item>
+                            <Button type="primary" className="confirm-btn" 
+                            onClick={this.confirmHandle}>确认</Button>
                         </div>
                     </Form>
                 </div>
