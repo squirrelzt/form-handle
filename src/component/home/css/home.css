@@ -1,26 +1,44 @@
 body {
     margin: 0;
     padding: 0;
+    font: 12px/1.5 "Microsoft YaHei",tahoma,arial,Hiragino Sans GB,\5b8b\4f53;
+    background: #eee;
+}
+header {
+    height: 80px;
+    line-height: 80px;
+    
+    color: #FFFFFF;
+    background: #0696d3;
+}
+header>span {
+    margin-left: 50px;
+    font-size: 30px;
+    font-weight: bold;
 }
 aside {
     position: absolute;
     width: 240px;
     color: #ffffff;
-    background-color: #121828;
-    min-height: 100%;
-    height: 100%;
+    /* background-color: #121828; */
+    background: rgba(214, 214, 214, 1);
+    min-height: 80%;
+    height: 80%;
+    overflow-y: hidden;
 }
 .aside-space {
     height: 80px;
-    background-color: #373D4B;
+    /* background-color: #373D4B; */
 }
 aside .ant-menu {
     color: #b8b8b8;
-    background: #121828;
+    /* background: #121828; */
+    background: rgba(214, 214, 214, 1);
     font-weight: bold;
 }
 aside .ant-menu-item a {
-    color: #b8b8b8;
+    /* color: #b8b8b8; */
+    color: #373D4B;
 }
 aside .ant-menu-item-selected a {
     color: #ffffff;

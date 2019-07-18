@@ -8,6 +8,7 @@ import AddForm from './../addform/AddForm.js';
 import Display from './../display/Display.js';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../entry/css/index.css';
+import Header from 'antd/lib/calendar/Header';
 
 class Home extends Component {
     constructor(props) {
@@ -36,6 +37,9 @@ class Home extends Component {
         return (
             <div>
             <div id="home-container">
+                <header>
+                    <span>表单处理系统</span>
+                </header>
                 <aside >
                     <div className="aside-space"></div>
                     <Menu mode="inline"
