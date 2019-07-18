@@ -11,7 +11,7 @@ class AddForm extends Component {
             data: [],
             jsonTemplateData: [],
             formHtml: '',
-            confirmVisibility: 'hidden'
+            confirmVisibility: 'hidden',
         };
     }
 
@@ -90,7 +90,9 @@ class AddForm extends Component {
     confirmHandle = (e) => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-              console.log('Received values of form: ', values);
+            //   console.log('Received values of form: ', values);
+            //   console.log('------------------');
+              console.log(this.state.jsonTemplateData);
             }
           });
     }
