@@ -10,7 +10,8 @@ class AddForm extends Component {
         this.state = {
             data: [],
             jsonTemplateData: [],
-            formHtml: ''
+            formHtml: '',
+            confirmVisibility: 'hidden'
         };
     }
 
@@ -39,8 +40,12 @@ class AddForm extends Component {
             );
         });
         this.setState({
-            formHtml: formItems
+            formHtml: formItems,
+            confirmVisibility: 'visible'
         });
+    }
+    confirmHandle = () => {
+
     }
     render() {
         const formItemLayout = {
@@ -66,11 +71,16 @@ class AddForm extends Component {
                     
                 </div>
                 <Divider className="add-form-divider"/>
-                <div className="display-form" >
-                <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                    {this.state.formHtml}
-                </Form>
-                    
+                <div className="display-form" style={{visibility:this.state.confirmVisibility}}>
+                    <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                        {this.state.formHtml}
+                        <div className="confirm-section" >
+                            <Form.Item>
+                                <Button type="primary" className="confirm-btn" 
+                                onClick={this.confirmHandle}>确认</Button>
+                            </Form.Item>
+                        </div>
+                    </Form>
                 </div>
             </div>
         );
