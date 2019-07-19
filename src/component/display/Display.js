@@ -10,7 +10,7 @@ class Display extends Component {
         super();
         this.state = {
             data: [],
-            formHtml: ''
+
         };
     }
 
@@ -19,11 +19,12 @@ class Display extends Component {
     }
     fetch = (params) => {
         auth.fetch('/form/query','get',params,(result)=>{
+        // auth.fetch('/ftp/listFiles','get',params,(result)=>{
             if ("error" == result) {
                 console.log(result);
             } else {
-            //    console.log('----------------------');
-            //    console.log(result);
+               console.log('----------------------');
+               console.log(result);
                this.setState({
                    data: result
                })
