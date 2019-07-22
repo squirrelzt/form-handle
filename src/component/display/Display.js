@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {auth} from './../../common/auth';
-import { Form, Icon, Button, Input, Divider, Tabs, message } from 'antd';
+import { Form, Icon, Button, Input, Divider, Tabs, message, Spin } from 'antd';
 const { TabPane } = Tabs;
 import './css/Display.css';
 
@@ -9,7 +9,7 @@ class Display extends Component {
         super();
         this.state = {
             data: [],
-
+            loading: false
         };
     }
 
@@ -17,9 +17,13 @@ class Display extends Component {
         this.fetch();
     }
     fetch = (params) => {
+        this.setState({
+            loading: true
+        });
         auth.fetch('/form/query','post', params,(result)=>{
             if ("error" != result) {
                 this.setState({
+                    loading: false,
                     data: result
                 });
             }
@@ -53,34 +57,36 @@ class Display extends Component {
         };
         return (
             <div id="display-container">
-               <Tabs defaultActiveKey="1" onChange={this.onChange}>
-                    {this.state.data.length>0?this.state.data.map((item, index) => {
-                        let jsonObj = eval('(' + item.formContent + ')');
-                        let tabKey = Object.keys(jsonObj)[0];
-                        const formItems = jsonObj[tabKey].map((objItem, index) => {
+                <Spin size="large" spinning={this.state.loading}>
+                    <Tabs defaultActiveKey="1" onChange={this.onChange}>
+                        {this.state.data.length>0?this.state.data.map((item, index) => {
+                            let jsonObj = eval('(' + item.formContent + ')');
+                            let tabKey = Object.keys(jsonObj)[0];
+                            const formItems = jsonObj[tabKey].map((objItem, index) => {
+                                return(
+                                    <Form.Item
+                                        label={objItem}
+                                        key={tabKey + index}>
+                                        {this.props.form.getFieldDecorator(objItem)(
+                                            <Input ></Input>,
+                                        )}
+                                    </Form.Item>
+                                );
+                            });
                             return(
-                                <Form.Item
-                                    label={objItem}
-                                    key={tabKey + index}>
-                                    {this.props.form.getFieldDecorator(objItem)(
-                                        <Input ></Input>,
-                                    )}
-                                </Form.Item>
+                                <TabPane tab={tabKey} key={index}>
+                                    <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+                                        {formItems}
+                                        <div className="confirm-section" >
+                                            <Button type="primary" className="confirm-btn" 
+                                            onClick={this.confirmHandle}>确认</Button>
+                                        </div>
+                                    </Form>
+                                </TabPane>
                             );
-                        });
-                        return(
-                            <TabPane tab={tabKey} key={index}>
-                                <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                                    {formItems}
-                                    <div className="confirm-section" >
-                                        <Button type="primary" className="confirm-btn" 
-                                        onClick={this.confirmHandle}>确认</Button>
-                                    </div>
-                                </Form>
-                            </TabPane>
-                        );
-                    }):""}
-                </Tabs>
+                        }):""}
+                    </Tabs>
+                </Spin>
             </div>
         );
         
