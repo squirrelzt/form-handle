@@ -11,6 +11,7 @@ export const auth = {
       headers:headers,
       data: JSON.stringify(params),
       type: 'json',
+      contentType: 'application/json',
       success: (result) => {
         if ("10110000" == result.resultCode) {
           callback(result.resultData);
@@ -38,7 +39,7 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = 'afad71ebd5ae495ebe586f23cb21caf7';
+    localStorage.token = '1bbb33a681d64c87809927fb3ef2e5d6';
   },
   getPath(){
     // return '';

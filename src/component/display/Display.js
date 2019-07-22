@@ -17,7 +17,7 @@ class Display extends Component {
         this.fetch();
     }
     fetch = (params) => {
-        auth.fetch('/form/query','post',params,(result)=>{
+        auth.fetch('/form/query','post', params,(result)=>{
             if ("error" != result) {
                 this.setState({
                     data: result

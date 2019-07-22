@@ -98,16 +98,13 @@ class AddForm extends Component {
           });
     }
     fetch = (params) => {
-        console.log(params);
-        auth.fetch('/form/create','post',params,(result)=>{
-            if ("error" == result) {
-                console.log(result);
-            } else {
+        auth.fetch('/form/create','post', params,(result)=>{
+            if ("error" != result) {
                console.log('----------------------');
                console.log(result);
                this.setState({
                    data: result
-               })
+               });
             }
         });
     }
