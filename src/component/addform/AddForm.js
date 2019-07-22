@@ -93,8 +93,23 @@ class AddForm extends Component {
             //   console.log('Received values of form: ', values);
             //   console.log('------------------');
               console.log(this.state.jsonTemplateData);
+              this.fetch(this.state.jsonTemplateData)
             }
           });
+    }
+    fetch = (params) => {
+        console.log(params);
+        auth.fetch('/form/create','post',params,(result)=>{
+            if ("error" == result) {
+                console.log(result);
+            } else {
+               console.log('----------------------');
+               console.log(result);
+               this.setState({
+                   data: result
+               })
+            }
+        });
     }
     render() {
         const { getFieldDecorator, getFieldError, isFieldValidating, isFieldTouched, getFieldValue } = this.props.form;

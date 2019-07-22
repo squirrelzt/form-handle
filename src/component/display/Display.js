@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {auth} from './../../common/auth';
-import { Form, Icon, Button, Input, Divider, Tabs } from 'antd';
+import { Form, Icon, Button, Input, Divider, Tabs, message } from 'antd';
 const { TabPane } = Tabs;
 import './css/Display.css';
 
@@ -19,15 +19,14 @@ class Display extends Component {
     }
     fetch = (params) => {
         auth.fetch('/form/query','get',params,(result)=>{
-        // auth.fetch('/ftp/listFiles','get',params,(result)=>{
             if ("error" == result) {
                 console.log(result);
             } else {
-               console.log('----------------------');
-               console.log(result);
-               this.setState({
-                   data: result
-               })
+                // console.log('------------------------');
+                // console.log(result);
+                this.setState({
+                    data: result
+                });
             }
         });
     }
@@ -61,20 +60,21 @@ class Display extends Component {
             <div id="display-container">
                <Tabs defaultActiveKey="1" onChange={this.onChange}>
                     {this.state.data.length>0?this.state.data.map((item, index) => {
-                        let obj = Object.keys(item);
-                        const formItems = item[obj[0]].map((item, index) => {
+                        let jsonObj = eval('(' + item.formContent + ')');
+                        let tabKey = Object.keys(jsonObj)[0];
+                        const formItems = jsonObj[tabKey].map((objItem, index) => {
                             return(
                                 <Form.Item
-                                    label={item}
-                                    key={item + index}>
-                                    {this.props.form.getFieldDecorator(item)(
+                                    label={objItem}
+                                    key={tabKey + index}>
+                                    {this.props.form.getFieldDecorator(objItem)(
                                         <Input ></Input>,
                                     )}
                                 </Form.Item>
                             );
                         });
                         return(
-                            <TabPane tab={obj[0]} key={index}>
+                            <TabPane tab={tabKey} key={index}>
                                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                                     {formItems}
                                     <div className="confirm-section" >

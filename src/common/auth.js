@@ -18,12 +18,21 @@ export const auth = {
       url: api + url,
       method: method,
       // headers:headers,
+      headers: {
+        "Accept": "*/*",
+        "token": localStorage.token
+      },
       data: param,
       type: 'json',
       success: (result) => {
         // console.log("---------------------");
         // console.log(result);
-        callback(result);
+        if ("10110000" == result.resultCode) {
+          callback(result.resultData);
+        } else {
+          
+        }
+        // callback(result);
       },
       error: (err) => {
         // console.log("+++++++++++++++++++++");
@@ -44,7 +53,7 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = 'dec2bb6c752342178176082e1b43ab43';
+    localStorage.token = '8526b872870b49a5929d0761d5fb02d9';
   },
   getPath(){
     // return '';
