@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import {auth} from './../../common/auth';
 import { Form, Icon, Button, Input, Divider, Tabs, message } from 'antd';
 const { TabPane } = Tabs;
@@ -18,12 +17,8 @@ class Display extends Component {
         this.fetch();
     }
     fetch = (params) => {
-        auth.fetch('/form/query','get',params,(result)=>{
-            if ("error" == result) {
-                console.log(result);
-            } else {
-                // console.log('------------------------');
-                // console.log(result);
+        auth.fetch('/form/query','post',params,(result)=>{
+            if ("error" != result) {
                 this.setState({
                     data: result
                 });
