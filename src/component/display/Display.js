@@ -41,25 +41,14 @@ class Display extends Component {
             }
           });
     }
+    resetHandle = (e) => {
+        this.props.form.resetFields();
+    }
     handleSubmit = () => {
 
     }
     tabChangeHandle = key => {
         console.log(key);
-    }
-    downloadHandle = () => {
-        // console.log(this.state.selectedTabKey);
-        this.fetchDownload({
-            businessKey: this.state.selectedTabKey
-        });
-    }
-    fetchDownload = (params) => {
-        console.log(params);
-        auth.fetch('/form/download','post', 'application/x-www-form-urlencoded', params,(result)=>{
-            if ("error" != result) {
-                console.log(result);
-            }
-        });
     }
     render() {
         const { getFieldDecorator, getFieldError, isFieldValidating, isFieldTouched, getFieldValue } = this.props.form;
@@ -97,10 +86,11 @@ class Display extends Component {
                                     <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                                         {formItems}
                                         <div className="confirm-section" >
-                                            <Button type="primary" className="confirm-btn" 
-                                            onClick={this.confirmHandle}>确认</Button>
-                                            <Button className="confirm-btn" 
-                                            onClick={this.downloadHandle}>下载模板</Button>
+                                            <Button type="primary" className="confirm-btn" onClick={this.confirmHandle}>确认</Button>
+                                            <Button type="dashed" className="reset-btn" onClick={this.resetHandle}>重置</Button>
+                                            <a href={auth.getPath()+'/form/download?token='+localStorage.token+'&businessKey='+this.state.selectedTabKey}>
+                                                <Button className="confirm-btn download-btn" icon="download">下载模板</Button>
+                                            </a>
                                         </div>
                                     </Form>
                                 </TabPane>
