@@ -9,7 +9,8 @@ class Display extends Component {
         super();
         this.state = {
             data: [],
-            loading: false
+            loading: false,
+            selectedTabKey: ''
         };
     }
 
@@ -20,7 +21,7 @@ class Display extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/query','post', params,(result)=>{
+        auth.fetch('/form/query','post', 'application/json', params,(result)=>{
             if ("error" != result) {
                 this.setState({
                     loading: false,
@@ -43,6 +44,23 @@ class Display extends Component {
     handleSubmit = () => {
 
     }
+    tabChangeHandle = key => {
+        console.log(key);
+    }
+    downloadHandle = () => {
+        // console.log(this.state.selectedTabKey);
+        this.fetchDownload({
+            businessKey: this.state.selectedTabKey
+        });
+    }
+    fetchDownload = (params) => {
+        console.log(params);
+        auth.fetch('/form/download','post', 'application/x-www-form-urlencoded', params,(result)=>{
+            if ("error" != result) {
+                console.log(result);
+            }
+        });
+    }
     render() {
         const { getFieldDecorator, getFieldError, isFieldValidating, isFieldTouched, getFieldValue } = this.props.form;
         const formItemLayout = {
@@ -58,10 +76,11 @@ class Display extends Component {
         return (
             <div id="display-container">
                 <Spin size="large" spinning={this.state.loading}>
-                    <Tabs defaultActiveKey="1" onChange={this.onChange}>
+                    <Tabs onChange={this.onChange}>
                         {this.state.data.length>0?this.state.data.map((item, index) => {
                             let jsonObj = eval('(' + item.formContent + ')');
                             let tabKey = Object.keys(jsonObj)[0];
+                            this.state.selectedTabKey = tabKey;
                             const formItems = jsonObj[tabKey].map((objItem, index) => {
                                 return(
                                     <Form.Item
@@ -74,12 +93,14 @@ class Display extends Component {
                                 );
                             });
                             return(
-                                <TabPane tab={tabKey} key={index}>
+                                <TabPane tab={tabKey} key={index} onChange={this.tabChangeHandle}>
                                     <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                                         {formItems}
                                         <div className="confirm-section" >
                                             <Button type="primary" className="confirm-btn" 
                                             onClick={this.confirmHandle}>确认</Button>
+                                            <Button className="confirm-btn" 
+                                            onClick={this.downloadHandle}>下载模板</Button>
                                         </div>
                                     </Form>
                                 </TabPane>

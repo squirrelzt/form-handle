@@ -1,7 +1,7 @@
 import reqwest from 'reqwest';
 
 export const auth = {
-  fetch(url, method, params, callback) {
+  fetch(url, method, contentType, params, callback) {
     let api = this.getPath();
     this.setToken();
     let headers = this.getHeaders();
@@ -9,9 +9,10 @@ export const auth = {
       url: api + url,
       method: method,
       headers:headers,
-      data: JSON.stringify(params),
+      // data: JSON.stringify(params),
+      data: params,
       type: 'json',
-      contentType: 'application/json',
+      contentType: contentType,
       success: (result) => {
         if ("10110000" == result.resultCode) {
           callback(result.resultData);
@@ -39,7 +40,7 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = '1bbb33a681d64c87809927fb3ef2e5d6';
+    localStorage.token = 'a92201de12eb4c15ba3b9639a89efa34';
   },
   getPath(){
     // return '';
