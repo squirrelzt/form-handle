@@ -68,6 +68,7 @@ class AddForm extends Component {
                             </div>;
         this.setState({
             formHtml: formContent,
+            jsonTemplateData: [],
             confirmVisibility: 'visible'
         });
     }
@@ -98,13 +99,17 @@ class AddForm extends Component {
           });
     }
     fetch = (params) => {
-        auth.fetch('/form/create','post', 'application/json', JSON.stringify(params),(result)=>{
+        auth.fetch('/form/createOrUpdate','post', 'application/json', JSON.stringify(params),(result)=>{
             if ("error" != result) {
                console.log('----------------------');
                console.log(result);
                this.setState({
-                   data: result
+                   data: result,
+                   confirmVisibility: 'hidden'
                });
+               message.success("新增或修改表单模板成功");
+            } else {
+                message.error("新增或修改表单模板失败");
             }
         });
     }
