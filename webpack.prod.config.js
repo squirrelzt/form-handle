@@ -37,7 +37,7 @@ module.exports = {
     plugins: [
     	new HtmlWebpackPlugin({
 				favicon:'./src/entry/images/favicon.ico',
-				title: '表单处理系统',
+				title: '大屏展示数据配置系统',
 				minify:{
 					html5:true,
 					collapseWhitespace: true,
