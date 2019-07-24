@@ -6,6 +6,7 @@ import { Menu, Icon, Button, Breadcrumb } from 'antd';
 const { SubMenu }  = Menu;
 import AddForm from './../addform/AddForm';
 import Display from './../display/Display';
+import ConfigTemplate from './../configtemplate/ConfigTemplate';
 import DataManage from './../datamanage/DataManage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../entry/css/index.css';
@@ -47,6 +48,8 @@ class Home extends Component {
         } 
         if (urlArray[1]) {
             this.state.selectedKeys =  urlArray[1];
+        } else {
+            this.state.selectedKeys =  urlArray[0];
         }
         return (
             <div>
@@ -66,7 +69,7 @@ class Home extends Component {
                                 <span>表单处理</span>
                             </Link>
                         </Menu.Item> */}
-                        <Menu.Item key="config-template">
+                        <Menu.Item key="configtemplate">
                             <Link to="/configtemplate">
                                 <Icon type="setting" />
                                 <span>配置模板</span>
@@ -103,6 +106,7 @@ class Home extends Component {
             <div className="content-container" >
                 {/* <Route path='/addform' component = { AddForm } /> */}
                 {/* <Route path='/display' component = { Display } /> */}
+                <Route path='/configtemplate' component = { ConfigTemplate } />
                 <Route path='/datamanage/:id' component = { DataManage } />
             </div>
             </div>
