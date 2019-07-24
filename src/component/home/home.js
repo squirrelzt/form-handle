@@ -62,6 +62,12 @@ class Home extends Component {
                         <Menu.Item key="addform">
                             <Link to="/addform">
                                 <Icon type="setting" />
+                                <span>表单处理</span>
+                            </Link>
+                        </Menu.Item>
+                        <Menu.Item key="config-template">
+                            <Link to="/configtemplate">
+                                <Icon type="setting" />
                                 <span>配置模板</span>
                             </Link>
                         </Menu.Item>

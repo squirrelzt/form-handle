@@ -40,6 +40,9 @@ aside .ant-menu-item a {
     /* color: #b8b8b8; */
     color: #373D4B;
 }
+.ant-menu-submenu .ant-menu-submenu-title {
+    color: #373D4B;
+}
 aside .ant-menu-item-selected a {
     color: #ffffff;
 }
@@ -48,7 +51,8 @@ aside .ant-menu-item:hover, aside .ant-menu-item-active, aside .ant-menu-submenu
     background: #3B548C;
 }
 aside .ant-menu-sub.ant-menu-inline {
-    background: #121828;
+    /* background: #121828; */
+    background: rgba(214, 214, 214, 1);
 }
 aside .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
     background: #373D4B;
