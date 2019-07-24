@@ -7,7 +7,8 @@ class DataManage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
+            formItemData: [],
+            data: '',
             loading: false,
             btnVisibility: 'hidden',
             mockDataEnable: false
@@ -16,6 +17,9 @@ class DataManage extends Component {
 
     componentWillMount() {
         this.fetch({
+            id: this.props.match.params.id
+        });
+        this.fetchData({
             id: this.props.match.params.id
         });
     }
@@ -28,6 +32,9 @@ class DataManage extends Component {
                 this.fetch({
                     id: nextProps.match.params.id
                 });
+                this.fetchData({
+                    id: nextProps.match.params.id
+                });
             }
         }
     }
@@ -36,6 +43,20 @@ class DataManage extends Component {
             loading: true
         });
         auth.fetch('/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
+            if ("error" != result) {
+                this.setState({
+                    formItemData: eval('(' + result + ')'),
+                    loading: false,
+                    btnVisibility: 'visible'
+                });
+            }
+        });
+    }
+    fetchData = (params) => {
+        this.setState({
+            loading: true
+        });
+        auth.fetch('/form/getDataByTemplateId','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
                 console.log('-------------------------');
                 console.log(eval('(' + result + ')'));
@@ -82,12 +103,20 @@ class DataManage extends Component {
                                     <Checkbox onChange={this.handleCheckBoxChange}>启用</Checkbox>,
                                 )}
                             </Form.Item>
-                            {this.state.data ? this.state.data.map(item => {
+                            {this.state.formItemData ? this.state.formItemData.map(item => {
+                                let initialValue;
+                                for (let k in this.state.data) {
+                                    if (item.key == k) {
+                                        initialValue = this.state.data[k];
+                                    }
+                                }
                                 return(
                                     <Form.Item
                                         label={item.name}
                                         key={item.key}>
-                                        {this.props.form.getFieldDecorator(item.key)(
+                                        {this.props.form.getFieldDecorator(item.key,{
+                                            initialValue: initialValue
+                                        })(
                                             <Input ></Input>,
                                         )}
                                     </Form.Item>
