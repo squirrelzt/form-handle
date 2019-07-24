@@ -99,14 +99,10 @@ class Home extends Component {
                         </SubMenu>
                     </Menu>
                 </aside>
-                <section>
-                    
-                </section>
-                
             </div>
             <div className="content-container" >
-                <Route path='/addform' component = { AddForm } />
-                <Route path='/display' component = { Display } />
+                {/* <Route path='/addform' component = { AddForm } /> */}
+                {/* <Route path='/display' component = { Display } /> */}
                 <Route path='/datamanage/:id' component = { DataManage } />
             </div>
             </div>

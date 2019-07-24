@@ -11,6 +11,7 @@
 }
 .form-commit-section {
     text-align: center;
+    margin-bottom: 30px;
 }
 .form-commit-section .ant-btn-primary {
     width: 120px;

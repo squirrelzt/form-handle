@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {auth} from './../../common/auth';
-import { Form, Icon, Button, Input, Divider, message, Spin } from 'antd';
+import { Form, Icon, Button, Input, Divider, message, Spin, Checkbox } from 'antd';
 import './css/DataManage.css';
 
 class DataManage extends Component {
@@ -9,7 +9,8 @@ class DataManage extends Component {
         this.state = {
             data: [],
             loading: false,
-            btnVisibility: 'hidden'
+            btnVisibility: 'hidden',
+            mockDataEnable: false
         };
     }
 
@@ -36,6 +37,8 @@ class DataManage extends Component {
         });
         auth.fetch('/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
+                console.log('-------------------------');
+                console.log(eval('(' + result + ')'));
                 this.setState({
                     data: eval('(' + result + ')'),
                     loading: false,
@@ -51,6 +54,9 @@ class DataManage extends Component {
             //   console.log('------------------');
             }
           });
+    }
+    handleCheckBoxChange = e => {
+        console.log(`checked = ${e.target.checked}`)
     }
     render() {
         const { getFieldDecorator, getFieldError, isFieldValidating, isFieldTouched, getFieldValue } = this.props.form;
@@ -68,7 +74,14 @@ class DataManage extends Component {
             <div id="data-manage-container">
                 <div className="section">
                     <Spin size="large" spinning={this.state.loading}>
-                        <Form className="data-form" {...formItemLayout} onSubmit={this.handleSubmit}>
+                        <Form className="data-form" {...formItemLayout} style={{visibility:this.state.btnVisibility}} 
+                            onSubmit={this.handleSubmit}>
+                            <Form.Item
+                                label="是否启用">
+                                {this.props.form.getFieldDecorator('dataType')(
+                                    <Checkbox onChange={this.handleCheckBoxChange}>启用</Checkbox>,
+                                )}
+                            </Form.Item>
                             {this.state.data ? this.state.data.map(item => {
                                 return(
                                     <Form.Item
@@ -81,7 +94,7 @@ class DataManage extends Component {
                                 );
                             })
                             :''}
-                            <div className="form-commit-section" style={{visibility:this.state.btnVisibility}}>
+                            <div className="form-commit-section" >
                                 <Button type="primary" className="commit-btn" onClick={this.handleSubmit}>确认</Button>
                             </div>
                         </Form>
