@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import {auth} from './../../common/auth';
-import { Form, Icon, Button, Input, Divider, Tabs, message, Spin } from 'antd';
-const { TabPane } = Tabs;
+import { Form, Icon, Button, Input, Divider, message, Spin } from 'antd';
 import './css/DataManage.css';
-import Item from 'antd/lib/list/Item';
 
 class DataManage extends Component {
     constructor(props) {
-        super();
+        super(props);
         this.state = {
             data: [],
             loading: false,
+            btnVisibility: 'hidden'
         };
     }
 
     componentWillMount() {
-        
+        this.fetch({
+            id: this.props.match.params.id
+        });
     }
     componentDidUpdate() {
        
     }
-    componentWillReceiveProps() {
-        this.fetch({
-            id: this.props.match.params.id
-        });
+    componentWillReceiveProps(nextProps) {
+        if (this.props.match.params.id !== nextProps.match.params.id) {
+            if (nextProps.match.params.id) {
+                this.fetch({
+                    id: nextProps.match.params.id
+                });
+            }
+        }
     }
     fetch = (params) => {
         this.setState({
@@ -33,16 +38,19 @@ class DataManage extends Component {
             if ("error" != result) {
                 this.setState({
                     data: eval('(' + result + ')'),
-                    loading: false
+                    loading: false,
+                    btnVisibility: 'visible'
                 });
             }
         });
     }
     handleSubmit = (e) => {
-
-    }
-    confirmHandle = () => {
-        
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+              console.log('Received values of form: ', values);
+            //   console.log('------------------');
+            }
+          });
     }
     render() {
         const { getFieldDecorator, getFieldError, isFieldValidating, isFieldTouched, getFieldValue } = this.props.form;
@@ -57,27 +65,30 @@ class DataManage extends Component {
             },
         };
         return (
-            <div id="display-container">
-                <Spin size="large" spinning={this.state.loading}>
-                    <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-                        {this.state.data ? this.state.data.map(item => {
-                            return(
-                                <Form.Item
-                                    label={item.name}
-                                    key={item.key}>
-                                    {this.props.form.getFieldDecorator(item.key)(
-                                        <Input ></Input>,
-                                    )}
-                                </Form.Item>
-                            );
-                        })
-                        :''}
-                    </Form>
-                </Spin>
-                
+            <div id="data-manage-container">
+                <div className="section">
+                    <Spin size="large" spinning={this.state.loading}>
+                        <Form className="data-form" {...formItemLayout} onSubmit={this.handleSubmit}>
+                            {this.state.data ? this.state.data.map(item => {
+                                return(
+                                    <Form.Item
+                                        label={item.name}
+                                        key={item.key}>
+                                        {this.props.form.getFieldDecorator(item.key)(
+                                            <Input ></Input>,
+                                        )}
+                                    </Form.Item>
+                                );
+                            })
+                            :''}
+                            <div className="form-commit-section" style={{visibility:this.state.btnVisibility}}>
+                                <Button type="primary" className="commit-btn" onClick={this.handleSubmit}>确认</Button>
+                            </div>
+                        </Form>
+                    </Spin>
+                </div>
             </div>
         );
-        
     }
 }
 
