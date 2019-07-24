@@ -9,14 +9,13 @@ import Display from './../display/Display';
 import DataManage from './../datamanage/DataManage';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../entry/css/index.css';
-import Header from 'antd/lib/calendar/Header';
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
             data: [],
-            selectedKeys: 'addform'
+            selectedKeys: ''
         };
     }
 
@@ -35,9 +34,9 @@ class Home extends Component {
             }
         });
     }
-    menuChange = (evt) => {
+    handleMenuChange = (e) => {
         this.setState({
-            selectedKeys: evt.key
+            selectedKeys: e.key
         });
     }
     render() {
@@ -46,7 +45,9 @@ class Home extends Component {
         if (url.substr(0,1) == "/") {
             urlArray = url.replace("/", "").split("/");
         } 
-        this.state.selectedKeys = urlArray[0];
+        if (urlArray[1]) {
+            this.state.selectedKeys =  urlArray[1];
+        }
         return (
             <div>
             <div id="home-container">
@@ -57,8 +58,8 @@ class Home extends Component {
                     <div className="aside-space"></div>
                     <Menu mode="inline"
                           selectedKeys={[this.state.selectedKeys]}
-                          defaultOpenKeys={['addform']}
-                          onClick={this.menuChange}>
+                          defaultOpenKeys={['datamanage']}
+                          onClick={this.handleMenuChange}>
                         {/* <Menu.Item key="addform">
                             <Link to="/addform">
                                 <Icon type="setting" />
@@ -77,14 +78,14 @@ class Home extends Component {
                                 <span>菜单展示</span>
                             </Link>
                         </Menu.Item> */}
-                        <SubMenu key="data-manage"
+                        <SubMenu key="datamanage"
                             title={
                                 <span>
                                 <Icon type="apartment"></Icon>
                                 <span>数据管理</span>
                             </span>
                             }>
-                            {this.state.data?this.state.data.map((item)=>{
+                            {this.state.data ? this.state.data.map((item)=>{
                                 return(
                                     <Menu.Item key={item.id}>
                                         <Link to={"/datamanage/" + item.id}>
