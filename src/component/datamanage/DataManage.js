@@ -44,6 +44,8 @@ class DataManage extends Component {
         });
         auth.fetch('/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
+                console.log('-------------------------');
+                console.log(eval('(' + result + ')'));
                 this.setState({
                     formItemData: eval('(' + result + ')'),
                     loading: false,
@@ -58,8 +60,8 @@ class DataManage extends Component {
         });
         auth.fetch('/form/getDataByTemplateId','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
-                console.log('-------------------------');
-                console.log(eval('(' + result + ')'));
+                // console.log('-------------------------');
+                // console.log(eval('(' + result + ')'));
                 this.setState({
                     data: eval('(' + result + ')'),
                     loading: false,
@@ -104,23 +106,57 @@ class DataManage extends Component {
                                 )}
                             </Form.Item>
                             {this.state.formItemData ? this.state.formItemData.map(item => {
-                                let initialValue;
-                                for (let k in this.state.data) {
-                                    if (item.key == k) {
-                                        initialValue = this.state.data[k];
+                                if (item.name) {
+                                    let initialValue;
+                                    for (let k in this.state.data) {
+                                        if (item.key == k) {
+                                            initialValue = this.state.data[k];
+                                        }
+                                    }
+                                    return(
+                                        <Form.Item
+                                            label={item.name}
+                                            key={item.key}>
+                                            {this.props.form.getFieldDecorator(item.key,{
+                                                initialValue: initialValue
+                                            })(
+                                                <Input ></Input>,
+                                            )}
+                                        </Form.Item>
+                                    );
+                                } else {
+                                    if (item.children) {
+                                        return (
+                                            <div key={item.key}>
+                                            {item.children.map((subItem, subIndex) => {
+                                            return (
+                                                <div key={item.key+subIndex} className="sub-zone">
+                                                <Divider className="zone-divider"/>
+                                                {subItem.children.map(towSubItem => {
+                                                    return(
+                                                        <Form.Item
+                                                            label={towSubItem.name}
+                                                            key={towSubItem.key}>
+                                                            {this.props.form.getFieldDecorator(towSubItem.key,{
+                                                                initialValue: ''
+                                                            })(
+                                                                <Input ></Input>,
+                                                            )}
+                                                        </Form.Item>
+                                                    );
+                                                })
+                                            }
+                                                </div>
+                                            )
+                                            
+                                            
+                                        })}
+                                            </div>
+                                        )
+                                        
                                     }
                                 }
-                                return(
-                                    <Form.Item
-                                        label={item.name}
-                                        key={item.key}>
-                                        {this.props.form.getFieldDecorator(item.key,{
-                                            initialValue: initialValue
-                                        })(
-                                            <Input ></Input>,
-                                        )}
-                                    </Form.Item>
-                                );
+                                
                             })
                             :''}
                             <div className="form-commit-section" >
