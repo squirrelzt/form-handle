@@ -134,7 +134,7 @@ class DataManage extends Component {
                                                 <Divider className="zone-divider"/>
                                                 {subItem.children.map(towSubItem => {
                                                     if ('label' == towSubItem.type) {
-                                                        return (<div style={{textAlign: 'center', marginBottom:'20px'}}>{towSubItem.name}</div>);
+                                                        return (<div key={towSubItem.key} style={{textAlign: 'center', marginBottom:'20px'}}>{towSubItem.name}</div>);
                                                     }
                                                     return(
                                                         <Form.Item

@@ -23,7 +23,7 @@ aside {
     /* background-color: #121828; */
     background: rgba(214, 214, 214, 1);
     min-height: 80%;
-    height: 80%;
+    /* height: 80%; */
     overflow-y: hidden;
 }
 .aside-space {
