@@ -63,12 +63,12 @@ class Home extends Component {
                           selectedKeys={[this.state.selectedKeys]}
                           defaultOpenKeys={['datamanage']}
                           onClick={this.handleMenuChange}>
-                        {/* <Menu.Item key="addform">
+                        <Menu.Item key="addform">
                             <Link to="/addform">
                                 <Icon type="setting" />
                                 <span>表单处理</span>
                             </Link>
-                        </Menu.Item> */}
+                        </Menu.Item>
                         <Menu.Item key="configtemplate">
                             <Link to="/configtemplate">
                                 <Icon type="setting" />
@@ -104,7 +104,7 @@ class Home extends Component {
                 </aside>
             </div>
             <div className="content-container" >
-                {/* <Route path='/addform' component = { AddForm } /> */}
+                <Route path='/addform' component = { AddForm } />
                 {/* <Route path='/display' component = { Display } /> */}
                 <Route path='/configtemplate' component = { ConfigTemplate } />
                 <Route path='/datamanage/:id' component = { DataManage } />
