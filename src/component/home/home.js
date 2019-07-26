@@ -8,6 +8,7 @@ import AddForm from './../addform/AddForm';
 import Display from './../display/Display';
 import ConfigTemplate from './../configtemplate/ConfigTemplate';
 import DataManage from './../datamanage/DataManage';
+import MockData from './../mockdata/MockData';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../entry/css/index.css';
 
@@ -61,7 +62,7 @@ class Home extends Component {
                     <div className="aside-space"></div>
                     <Menu mode="inline"
                           selectedKeys={[this.state.selectedKeys]}
-                          defaultOpenKeys={['datamanage']}
+                          defaultOpenKeys={['mockdata']}
                           onClick={this.handleMenuChange}>
                         <Menu.Item key="addform">
                             <Link to="/addform">
@@ -81,7 +82,7 @@ class Home extends Component {
                                 <span>菜单展示</span>
                             </Link>
                         </Menu.Item> */}
-                        <SubMenu key="datamanage"
+                        {/* <SubMenu key="datamanage"
                             title={
                                 <span>
                                 <Icon type="apartment"></Icon>
@@ -92,7 +93,24 @@ class Home extends Component {
                                 return(
                                     <Menu.Item key={item.id}>
                                         <Link to={"/datamanage/" + item.id}>
-                                            {/* <Icon type="appstore" /> */}
+                                            <span>{item.formName}</span>
+                                        </Link>
+                                    </Menu.Item>
+                                );
+                            })
+                        :''}
+                        </SubMenu> */}
+                        <SubMenu key="mockdata"
+                            title={
+                                <span>
+                                <Icon type="apartment"></Icon>
+                                <span>数据管理</span>
+                            </span>
+                            }>
+                            {this.state.data ? this.state.data.map((item)=>{
+                                return(
+                                    <Menu.Item key={item.id}>
+                                        <Link to={"/mockdata/" + item.id}>
                                             <span>{item.formName}</span>
                                         </Link>
                                     </Menu.Item>
@@ -107,7 +125,8 @@ class Home extends Component {
                 <Route path='/addform' component = { AddForm } />
                 {/* <Route path='/display' component = { Display } /> */}
                 <Route path='/configtemplate' component = { ConfigTemplate } />
-                <Route path='/datamanage/:id' component = { DataManage } />
+                {/* <Route path='/datamanage/:id' component = { DataManage } /> */}
+                <Route path='/mockdata/:id' component = { MockData } />
             </div>
             </div>
         )
