@@ -15,11 +15,15 @@ class MockData extends Component {
             loading: false,
             btnVisibility: 'hidden',
             mockDataEnable: false,
-            schema: {}
+            schema: {},
+            id: ''
         };
     }
 
     componentWillMount() {
+        this.setState({
+            id: this.props.match.params.id
+        });
         this.fetch({
             id: this.props.match.params.id
         });
@@ -33,6 +37,9 @@ class MockData extends Component {
     componentWillReceiveProps(nextProps) {
         if (this.props.match.params.id !== nextProps.match.params.id) {
             if (nextProps.match.params.id) {
+                this.setState({
+                    id: this.props.match.params.id
+                });
                 this.fetch({
                     id: nextProps.match.params.id
                 });
@@ -53,7 +60,6 @@ class MockData extends Component {
                     formItemData: eval('(' + result + ')'),
                     loading: false,
                     btnVisibility: 'visible',
-                    jsonDta: result,
                     schema: {
                         title: "",
                         type: "object",
@@ -61,6 +67,9 @@ class MockData extends Component {
                     }
                 });
             }
+            this.setState({
+                loading: false
+            });
         });
     }
     fetchData = (params) => {
@@ -73,30 +82,59 @@ class MockData extends Component {
                 // console.log(eval('(' + result + ')'));
                 this.setState({
                     data: eval('(' + result + ')'),
-                    loading: false,
                     btnVisibility: 'visible',
                     jsonDta: result
                 });
             }
+            this.setState({
+                loading: false
+            });
         });
     }
     handleSubmit = e => {
-        console.log('-------------------------------');
-        console.log(e.formData);
+        // console.log('-------------------------------');
+        // console.log(e.formData);
+        this.fetchSubmit({
+            formId: this.state.id,
+            mockDataEnable: this.state.mockDataEnable,
+            mockData: e.formData
+        });
+    }
+    fetchSubmit = (params) => {
+        this.setState({
+            loading: true
+        });
+        auth.fetch('/form/createOrUpdateData','post', 'application/json', JSON.stringify(params),(result)=>{
+            if ("error" != result) {
+                message.success("新增或修改Mock数据成功！")
+            }
+            this.setState({
+                loading: false
+            });
+        });
+    }
+    onCheckboxChange = e => {
+        this.setState({
+            mockDataEnable:e.target.checked
+        })
     }
     render() {
         // const log = (type) => console.log.bind(console, type);
         return (
-            <div id="data-manage-container">
-                <Spin size="large" spinning={this.state.loading}>
-                    <Form schema={this.state.schema}
-                        // onChange={log("changed")}
-                        // onSubmit={log("submitted")}
-                        onSubmit={this.handleSubmit}
-                        // onError={log("errors")} 
-                        />
-                </Spin>
-               
+            <div id="mock-data-container">
+                <div className="section">
+                    <Spin size="large" spinning={this.state.loading}>
+                        <Checkbox className="mock-enable-checkbox" onChange={this.onCheckboxChange}>
+                            是否启用
+                        </Checkbox>
+                        <Form className="json-form" schema={this.state.schema}
+                            // onChange={log("changed")}
+                            // onSubmit={log("submitted")}
+                            onSubmit={this.handleSubmit}
+                            // onError={log("errors")} 
+                            />
+                    </Spin>
+                </div>
             </div>
         );
     }
