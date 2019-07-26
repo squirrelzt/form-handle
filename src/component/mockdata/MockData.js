@@ -38,7 +38,7 @@ class MockData extends Component {
         if (this.props.match.params.id !== nextProps.match.params.id) {
             if (nextProps.match.params.id) {
                 this.setState({
-                    id: this.props.match.params.id
+                    id: nextProps.match.params.id
                 });
                 this.fetch({
                     id: nextProps.match.params.id
@@ -104,6 +104,8 @@ class MockData extends Component {
         this.setState({
             loading: true
         });
+        // console.log('-------------------------------');
+        // console.log(params);
         auth.fetch('/form/createOrUpdateData','post', 'application/json', JSON.stringify(params),(result)=>{
             if ("error" != result) {
                 message.success("新增或修改Mock数据成功！")
