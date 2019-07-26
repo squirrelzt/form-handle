@@ -82,18 +82,21 @@ class MockData extends Component {
     }
     handleSubmit = e => {
         console.log('-------------------------------');
-        console.log(e);
         console.log(e.formData);
     }
     render() {
-        const log = (type) => console.log.bind(console, type);
+        // const log = (type) => console.log.bind(console, type);
         return (
             <div id="data-manage-container">
-               <Form schema={this.state.schema}
-                    onChange={log("changed")}
-                    // onSubmit={log("submitted")}
-                    onSubmit={this.handleSubmit}
-                    onError={log("errors")} />
+                <Spin size="large" spinning={this.state.loading}>
+                    <Form schema={this.state.schema}
+                        // onChange={log("changed")}
+                        // onSubmit={log("submitted")}
+                        onSubmit={this.handleSubmit}
+                        // onError={log("errors")} 
+                        />
+                </Spin>
+               
             </div>
         );
     }
