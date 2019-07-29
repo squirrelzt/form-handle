@@ -9,6 +9,7 @@ import Display from './../display/Display';
 import ConfigTemplate from './../configtemplate/ConfigTemplate';
 import DataManage from './../datamanage/DataManage';
 import MockData from './../mockdata/MockData';
+import TokenConfig from './../tokenconfig/TokenConfig';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import './../../entry/css/index.css';
 
@@ -64,6 +65,12 @@ class Home extends Component {
                           selectedKeys={[this.state.selectedKeys]}
                           defaultOpenKeys={['mockdata']}
                           onClick={this.handleMenuChange}>
+                        <Menu.Item key="tokenconfig">
+                            <Link to="/tokenconfig">
+                                <Icon type="security-scan" />
+                                <span>配置token</span>
+                            </Link>
+                        </Menu.Item>
                         <Menu.Item key="addform">
                             <Link to="/addform">
                                 <Icon type="setting" />
@@ -127,6 +134,7 @@ class Home extends Component {
                 <Route path='/configtemplate' component = { ConfigTemplate } />
                 {/* <Route path='/datamanage/:id' component = { DataManage } /> */}
                 <Route path='/mockdata/:id' component = { MockData } />
+                <Route path='/tokenconfig' component = { TokenConfig } />
             </div>
             </div>
         )

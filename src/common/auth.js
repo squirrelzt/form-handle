@@ -40,7 +40,7 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = '1bbb33a681d64c87809927fb3ef2e5d6';
+    localStorage.token = 'be39f126467c4d3da280bb6dfbb8c7bf';
   },
   getPath(){
     // return '';
