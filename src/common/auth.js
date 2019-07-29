@@ -26,6 +26,10 @@ export const auth = {
         if (401 == err.status) {
           let response = eval('(' + err.response + ')');
           message.error(response.message);
+          // window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangadmintest.66yunlian.cn/dapingadmin/';
+            //  window.location.href = 'http://sso.uc.test.66yunlian.com?source=http://127.0.0.1:3000/configtemplate';
+            // window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangadmintest.66yunlian.cn/dapingadmin/';
+            // window.location.href = 'http://cangtest.66yunlian.cn?source=http://127.0.0.1:3000/configtemplate';
         }
         callback("error");
         
@@ -44,12 +48,12 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = '1bbb33a681d64c87809927fb3ef2e5d6';
+    localStorage.token = '69c65a536b464a92bd9980ebc1a724e5';
   },
   getPath(){
-    // return '';
+    return '';
       // return 'http://127.0.0.1:8080';
-      return 'http://127.0.0.1:8399';
+      // return 'http://127.0.0.1:8399';
   }
 
 }
