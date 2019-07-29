@@ -1,9 +1,9 @@
 import reqwest from 'reqwest';
+import { message } from 'antd';
 
 export const auth = {
   fetch(url, method, contentType, params, callback) {
     let api = this.getPath();
-    this.setToken();
     let headers = this.getHeaders();
     reqwest({
       url: api + url,
@@ -23,6 +23,10 @@ export const auth = {
       },
       error: (err) => {
         console.log(err);
+        if (401 == err.status) {
+          let response = eval('(' + err.response + ')');
+          message.error(response.message);
+        }
         callback("error");
         
       }
@@ -40,7 +44,7 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = 'be39f126467c4d3da280bb6dfbb8c7bf';
+    localStorage.token = '1bbb33a681d64c87809927fb3ef2e5d6';
   },
   getPath(){
     // return '';

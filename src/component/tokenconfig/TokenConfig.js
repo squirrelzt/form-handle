@@ -24,9 +24,6 @@ class TokenConfig extends Component {
     handleSubmit = e => {
         this.props.form.validateFields((err, values) => {
             if (!err) {
-              console.log('Received values of form: ', values);
-              console.log('------------------')
-              console.log(values.token);
               if (values.token) {
                 localStorage.token = values.token;
                 message.success('TOKEN 配置成功 ！')
