@@ -87,12 +87,12 @@ class Home extends Component {
                           selectedKeys={[this.state.selectedKeys]}
                           defaultOpenKeys={['mockdata']}
                           onClick={this.handleMenuChange}>
-                        <Menu.Item key="tokenconfig">
+                        {/* <Menu.Item key="tokenconfig">
                             <Link to="/dapingadmin/tokenconfig">
                                 <Icon type="security-scan" />
                                 <span>配置token</span>
                             </Link>
-                        </Menu.Item>
+                        </Menu.Item> */}
                         {/* <Menu.Item key="addform">
                             <Link to="/dapingadmin/addform">
                                 <Icon type="setting" />
@@ -156,7 +156,7 @@ class Home extends Component {
                 {/* <Route path='/dapingadmin/configtemplate' component = { ConfigTemplate } /> */}
                 {/* <Route path='/datamanage/:id' component = { DataManage } /> */}
                 <Route path='/dapingadmin/mockdata/:id' component = { MockData } />
-                <Route path='/dapingadmin/tokenconfig' component = { TokenConfig } />
+                {/* <Route path='/dapingadmin/tokenconfig' component = { TokenConfig } /> */}
             </div>
             </div>
         )
