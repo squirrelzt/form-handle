@@ -29,7 +29,7 @@ class Home extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/query','post', 'application/json', params,(result)=>{
+        auth.fetch('/bigshow/form/query','post', 'application/json', params,(result)=>{
             if ("error" != result) {
                 this.setState({
                     data: result
@@ -48,10 +48,15 @@ class Home extends Component {
         if (url.substr(0,1) == "/") {
             urlArray = url.replace("/", "").split("/");
         } 
-        if (urlArray[1]) {
-            this.state.selectedKeys =  urlArray[1];
+        // if (urlArray[1]) {
+        //     this.state.selectedKeys =  urlArray[1];
+        // } else {
+        //     this.state.selectedKeys =  urlArray[0];
+        // }
+        if (urlArray[2]) {
+            this.state.selectedKeys =  urlArray[2];
         } else {
-            this.state.selectedKeys =  urlArray[0];
+            this.state.selectedKeys =  urlArray[1];
         }
         return (
             <div>
@@ -66,23 +71,23 @@ class Home extends Component {
                           defaultOpenKeys={['mockdata']}
                           onClick={this.handleMenuChange}>
                         <Menu.Item key="tokenconfig">
-                            <Link to="/tokenconfig">
+                            <Link to="/dapingadmin/tokenconfig">
                                 <Icon type="security-scan" />
                                 <span>配置token</span>
                             </Link>
                         </Menu.Item>
-                        <Menu.Item key="addform">
-                            <Link to="/addform">
+                        {/* <Menu.Item key="addform">
+                            <Link to="/dapingadmin/addform">
                                 <Icon type="setting" />
                                 <span>表单处理</span>
                             </Link>
-                        </Menu.Item>
-                        <Menu.Item key="configtemplate">
-                            <Link to="/configtemplate">
+                        </Menu.Item> */}
+                        {/* <Menu.Item key="configtemplate">
+                            <Link to="/dapingadmin/configtemplate">
                                 <Icon type="setting" />
                                 <span>配置模板</span>
                             </Link>
-                        </Menu.Item>
+                        </Menu.Item> */}
                         {/* <Menu.Item key="display">
                             <Link to="/display">
                                 <Icon type="apartment" />
@@ -117,7 +122,7 @@ class Home extends Component {
                             {this.state.data ? this.state.data.map((item)=>{
                                 return(
                                     <Menu.Item key={item.id}>
-                                        <Link to={"/mockdata/" + item.id}>
+                                        <Link to={"/dapingadmin/mockdata/" + item.id}>
                                             <span>{item.formName}</span>
                                         </Link>
                                     </Menu.Item>
@@ -129,12 +134,12 @@ class Home extends Component {
                 </aside>
             </div>
             <div className="content-container" >
-                <Route path='/addform' component = { AddForm } />
+                {/* <Route path='/dapingadmin/addform' component = { AddForm } /> */}
                 {/* <Route path='/display' component = { Display } /> */}
-                <Route path='/configtemplate' component = { ConfigTemplate } />
+                {/* <Route path='/dapingadmin/configtemplate' component = { ConfigTemplate } /> */}
                 {/* <Route path='/datamanage/:id' component = { DataManage } /> */}
-                <Route path='/mockdata/:id' component = { MockData } />
-                <Route path='/tokenconfig' component = { TokenConfig } />
+                <Route path='/dapingadmin/mockdata/:id' component = { MockData } />
+                <Route path='/dapingadmin/tokenconfig' component = { TokenConfig } />
             </div>
             </div>
         )

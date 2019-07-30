@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 // 查询表单
-router.get('/form/query', urlencodedParser, function(req, res, next) {
+router.get('/bigshow/form/query', urlencodedParser, function(req, res, next) {
     console.log("------------------------------");
     res.json(
         [

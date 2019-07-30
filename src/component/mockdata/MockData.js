@@ -53,7 +53,7 @@ class MockData extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
+        auth.fetch('/bigshow/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
                 // console.log('-------------------------');
                 this.setState({
@@ -76,7 +76,7 @@ class MockData extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/getDataByTemplateId','get', 'application/x-www-form-urlencoded', params,(result)=>{
+        auth.fetch('/bigshow/form/getDataByTemplateId','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
                 // console.log('-------------------------');
                 // console.log(eval('(' + result + ')'));
@@ -106,7 +106,7 @@ class MockData extends Component {
         });
         // console.log('-------------------------------');
         // console.log(params);
-        auth.fetch('/form/createOrUpdateData','post', 'application/json', JSON.stringify(params),(result)=>{
+        auth.fetch('/bigshow/form/createOrUpdateData','post', 'application/json', JSON.stringify(params),(result)=>{
             if ("error" != result) {
                 message.success("新增或修改Mock数据成功！")
             }

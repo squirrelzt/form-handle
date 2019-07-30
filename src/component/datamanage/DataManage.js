@@ -42,7 +42,7 @@ class DataManage extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
+        auth.fetch('/bigshow/form/getTemplateById','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
                 console.log('-------------------------');
                 console.log(eval('(' + result + ')'));
@@ -58,7 +58,7 @@ class DataManage extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/getDataByTemplateId','get', 'application/x-www-form-urlencoded', params,(result)=>{
+        auth.fetch('/bigshow/form/getDataByTemplateId','get', 'application/x-www-form-urlencoded', params,(result)=>{
             if ("error" != result) {
                 // console.log('-------------------------');
                 // console.log(eval('(' + result + ')'));

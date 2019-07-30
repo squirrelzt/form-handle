@@ -51,9 +51,14 @@ export const auth = {
     localStorage.token = '69c65a536b464a92bd9980ebc1a724e5';
   },
   getPath(){
-    return '';
+    // return '';
       // return 'http://127.0.0.1:8080';
-      // return 'http://127.0.0.1:8399';
+      return 'http://127.0.0.1:8399';
+      // console.log(window.location);
+      // 测试环境
+      // return 'https://cangtest.66yunlian.cn';
+      // 生产环境
+      // return 'https://cang.66yunlian.cn';
   }
 
 }

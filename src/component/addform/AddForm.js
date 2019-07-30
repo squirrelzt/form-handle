@@ -99,7 +99,7 @@ class AddForm extends Component {
           });
     }
     fetch = (params) => {
-        auth.fetch('/form/createOrUpdate','post', 'application/json', JSON.stringify(params),(result)=>{
+        auth.fetch('/bigshow/form/createOrUpdate','post', 'application/json', JSON.stringify(params),(result)=>{
             if ("error" != result) {
                console.log('----------------------');
                console.log(result);

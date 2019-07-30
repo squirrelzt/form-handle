@@ -21,7 +21,7 @@ class Display extends Component {
         this.setState({
             loading: true
         });
-        auth.fetch('/form/query','post', 'application/json', params,(result)=>{
+        auth.fetch('/bigshow/form/query','post', 'application/json', params,(result)=>{
             if ("error" != result) {
                 this.setState({
                     loading: false,

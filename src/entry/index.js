@@ -24,7 +24,7 @@ class Index extends React.Component {
       <Router>
           <div>
             <Switch>
-              <Route path='/' component = { Home } />
+              <Route path='/dapingadmin' component = { Home } />
               {/* <Route path='/addform' component = { AddForm } /> */}
             </Switch>
           </div>
