@@ -23,6 +23,15 @@ class Home extends Component {
     }
 
     componentWillMount(){
+        // console.log('===================');
+        // console.log(window.location.search);
+        let urlParam = window.location.search;
+        if (urlParam) {
+            let params = urlParam.split('=');
+            if (params[1]) {
+                localStorage.token = params[1];
+            }
+        }
         this.fetch();
     };
     fetch = (params) => {

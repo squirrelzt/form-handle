@@ -23,13 +23,13 @@ export const auth = {
       },
       error: (err) => {
         console.log(err);
-        if (401 == err.status) {
-          let response = eval('(' + err.response + ')');
-          message.error(response.message);
-          // window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangadmintest.66yunlian.cn/dapingadmin/';
-            //  window.location.href = 'http://sso.uc.test.66yunlian.com?source=http://127.0.0.1:3000/configtemplate';
-            // window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangadmintest.66yunlian.cn/dapingadmin/';
-            // window.location.href = 'http://cangtest.66yunlian.cn?source=http://127.0.0.1:3000/configtemplate';
+        if (401 == err.status || 405 == err.status || 403 == err.status) {
+          if (err.response) {
+            let response = eval('(' + err.response + ')');
+            message.error(response.message);
+          }
+            window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangtest.66yunlian.cn/dapingadmin';
+            // window.location.href = 'http://sso.uc.test.66yunlian.com?source=http://127.0.0.1:3000/dapingadmin';
         }
         callback("error");
         
@@ -48,15 +48,15 @@ export const auth = {
     return headers;
   },
   setToken() {
-    localStorage.token = '69c65a536b464a92bd9980ebc1a724e5';
+    localStorage.token = '11111';
   },
   getPath(){
     // return '';
       // return 'http://127.0.0.1:8080';
-      return 'http://127.0.0.1:8399';
+      // return 'http://127.0.0.1:8399';
       // console.log(window.location);
       // 测试环境
-      // return 'https://cangtest.66yunlian.cn';
+      return 'https://cangtest.66yunlian.cn';
       // 生产环境
       // return 'https://cang.66yunlian.cn';
   }
