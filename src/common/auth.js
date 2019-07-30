@@ -28,15 +28,17 @@ export const auth = {
             let response = eval('(' + err.response + ')');
             message.error(response.message);
           }
-            window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangtest.66yunlian.cn/dapingadmin';
-            // window.location.href = 'http://sso.uc.test.66yunlian.com?source=http://127.0.0.1:3000/dapingadmin';
+            this.redirectSso();
         }
         callback("error");
         
       }
     });
   },
-
+  redirectSso() {
+    // 测试环境
+    window.location.href = 'http://sso.uc.test.66yunlian.com?source=https://cangtest.66yunlian.cn/dapingadmin';
+  },
   getTimestamp(dateString) {
     return new Date(dateString).getTime()/1000;
   },

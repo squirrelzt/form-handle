@@ -51,6 +51,10 @@ class Home extends Component {
             selectedKeys: e.key
         });
     }
+    onLogout = () => {
+        localStorage.token = '';
+        auth.redirectSso();
+    }
     render() {
         let url = this.props.location.pathname;
         let urlArray = [];
@@ -72,6 +76,10 @@ class Home extends Component {
             <div id="home-container">
                 <header>
                     <span>大屏展示数据配置系统</span>
+                    <div className="logout">
+                        <Button className="logout-btn" onClick={this.onLogout}><Icon type="logout"/>退&nbsp;出</Button>
+                    </div>
+                    
                 </header>
                 <aside >
                     <div className="aside-space"></div>
